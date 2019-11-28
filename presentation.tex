@@ -1,0 +1,390 @@
+% Created 2019-11-27 Wed 00:04
+% Intended LaTeX compiler: pdflatex
+\documentclass[presentation]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{tabu}
+\usepackage{minted}
+\usepackage[english, ngerman]{babel}
+\hypersetup{pdfauthor="Vasilij Schneidermann", pdftitle="State of Retro Gaming in Emacs", colorlinks, linkcolor=, urlcolor=blue}
+\setminted{fontsize=\footnotesize,escapeinside=@@}
+\usetheme{Rochester}
+\usecolortheme[RGB={87,83,170}]{structure}
+\author{Vasilij Schneidermann}
+\date{November 2019}
+\title{State of Retro Gaming in Emacs}
+\uselanguage{German}
+\languagepath{German}
+\hypersetup{
+ pdfauthor={Vasilij Schneidermann},
+ pdftitle={State of Retro Gaming in Emacs},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={Ngerman}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\AtBeginSection{\frame{\sectionpage}}
+\shorthandoff{"}
+
+\section{Intro}
+\label{sec:org75dc689}
+
+\begin{frame}[label={sec:org9a56e35}]{Sprecher}
+\begin{itemize}
+\item Vasilij Schneidermann, 27
+\item Cyber Security Consultant bei msg
+\item mail@vasilij.de
+\item \url{https://github.com/wasamasa}
+\item \url{http://brause.cc/}
+\item \url{http://emacsninja.com/}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgbd5209f}]{Motivation}
+\begin{itemize}
+\item Emacs ist ein großartiger Zeitvertreib
+\item Viele kuriose Demonstrationen:
+\begin{itemize}
+\item Salat online bestellen
+\item Window-Manager
+\item IRC-Bot
+\item Text-Browser
+\item Einfache Spiele
+\item 3D-Labyrinth
+\item Z-Machine-Emulator
+\item Audio-/Video-Editor
+\item Sex-Toy-Controller
+\end{itemize}
+\item Ist es möglich Spiele performant zu emulieren?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org41b3054}]{Kontext}
+\begin{itemize}
+\item Voriger Vortrag auf FrOSCon/Quasiconf: Audiovisuelle Demos
+\item NES-Emulatoren sollen leicht sein
+\item Zufälliger Mensch im Internet™ kam mir zuvor
+\item Empfohlenes Emulations-Projekt für Anfänger: CHIP-8
+\item Alternative: Space Invaders auf dem Intel 8080 oder CP/M
+\item Anderer Mensch™ veröffentlichte einen GB-Emulator\ldots{}
+\end{itemize}
+\end{frame}
+
+\section{Interaktive Demos}
+\label{sec:orgfed5086}
+
+\begin{frame}[label={sec:orgd88bc5c}]{NES}
+\begin{itemize}
+\item \url{https://github.com/gongo/emacs-nes}
+\item Sehr langsam (100x), schafft nicht mehr als den Startbildschirm
+\item Meiste Zeit wird beim Rendering verbraten
+\item Könnte mit viel Frameskip funktionieren\ldots{}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org30f84d7}]{GB}
+\begin{itemize}
+\item \url{https://github.com/vreeze/eboy}
+\item WIP, wurde in Eile nach meinem Projekt veröffentlicht
+\item Fast spielbar dank viel Frameskip
+\item Nur Tetris funktioniert
+\item Populärstes Projekt von allen
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org17bc2ef}]{CHIP-8}
+\begin{itemize}
+\item \url{https://github.com/wasamasa/chip8.el}
+\item Abgeschlossen, <1000SLOC
+\item Unterstützt die Super CHIP-8-Erweiterungen
+\item Läuft auf voller Geschwindigkeit ohne Frameskip
+\item Vollständige Kompatibilität
+\end{itemize}
+\end{frame}
+
+\section{Fun Facts über \texttt{chip8.el}}
+\label{sec:orgfd6721a}
+
+\begin{frame}[label={sec:org2ffa6ce}]{Was zur Hölle ist ein CHIP-8?}
+\begin{itemize}
+\item Es ist eine VM, keine Spielekonsole
+\item Design auf einfache Portierbarkeit von Spielen ausgelegt
+\item Nicht besonders erfolgreich
+\item Kleine Gruppe von Enthusiasten welche Spiele dafür entwickeln
+\item Es existieren sogar Demos!
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org2a3f019}]{Systemspezifikationen}
+\begin{itemize}
+\item CPU: 8-Bit, 16 universelle Register, 36 Instruktionen, fixe Instruktionsgröße
+\item RAM: 4KB
+\item Stack: 16 Rücksprungadressen
+\item Auflösung: 64 x 32 schwarz-weiße Pixel
+\item Rendering: Sprites werden im XOR-Modus gezeichnet
+\item Sound: Monotoner Piepser
+\item Input: Hexadezimales Keypad
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org1ab1500}]{Ziele}
+\begin{itemize}
+\item Namen ausdenken
+\item ROM-Pack und Doku besorgen
+\item Die Plattform verstehen
+\item Bau von Reverse-Engineering-Tools
+\item Rendering
+\item Sound
+\item Möglichst viele Spiele ans Laufen bekommen
+\item Kein Debugger
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:org151a83f}]{Wie funktioniert es?}
+ \begin{itemize}
+\item Ausführungsgeschwindigkeit: Nicht spezifiziert
+\item Sound- und Delay-Timer zählen mit 60FPS auf 0 herunter
+\item Spiel wird in den RAM bei \texttt{\#x200} geladen
+\item Program Counter wird auf \texttt{\#x200} gesetzt
+\item Instruktion dekodieren, ausführen, wiederholen
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org61d7d58}]{Probleme mit der Game-Loop}
+\begin{itemize}
+\item Typischer Ansatz: Tue Dinge™, warte ab, wiederholen
+\item Funktioniert nicht gut in Emacs, da interaktives Programm
+\item Nicht blockierendes Warten: Unvorhersehbares Verhalten
+\item Blockierendes Warten: Editor hängt sich auf
+\item Timer: Kontrolle wird dem Editor überlassen, Benutzereingabe ist
+möglich
+\item Es wird eine Funktion mit 60Hz aufgerufen, diese darf nicht zu viel
+tun:
+\begin{itemize}
+\item CPU-Zyklen ausführen
+\item Sound-/Delay-Register dekrementieren
+\item Rendering
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:org0c14eb9}]{Abbilden der VM auf Emacs Lisp}
+ \begin{itemize}
+\item Schlussendlich sind es nur Zahlen (und Arrays von Zahlen)
+\item RAM, Register, Stack, Tastatur-State, Bildschirm, etc.
+\item Alles in globalen Variablen gespeichert
+\item Es werden keine Listen verwendet
+\item Seiteneffekt: Vorhersehbares Laufzeitverhalten, keine GC-Pausen
+\item Register werden als Array mithilfe eines \texttt{enum}-Makros abgebildet
+\item Seiteneffekt: Viel einfacheres Dekodieren von Instruktionen
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgbf74113}]{Eingebaute Sprites}
+\begin{itemize}
+\item Nicht spezifiziert
+\item Jeder klaut diese von der Referenzimplementierung
+\item Super CHIP-8 hat doppelt so große Sprites
+\item Hochskaliert mit einer unschönen Zeile Ruby-Code
+\item Lektion: Manchmal ist es nicht den Hirnschmalz wert
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:org9f8c750}]{Dekodieren von Instruktionen}
+ \begin{itemize}
+\item Jede Instruktion ist zwei Bytes groß
+\item Argumente werden in diesen Bytes enkodiert
+\item \texttt{JP nnn} entspricht zum Beispiel \texttt{\#x1nnn}
+\item Typ: \texttt{\#xF000} als Bitmaske, gefolgt von Shift um 12 Bits
+\item Argument: \texttt{\#x0FFF} als Bitmaske (kein Shift nötig)
+\item Typisches Muster: Adressen sind immer die letzten drei Nibbles
+\item Großes \texttt{cond} stellt den Typ fest und führt Seiteneffekte aus
+\item Typischer Seiteneffekt: Program Counter um 2 Bytes erhöhen
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgf618bba}]{Interaktives Testen}
+\begin{itemize}
+\item Erster Ansatz: ROM ausführen bis der Benutzer die Schleife abbricht
+\item Debug-Command um den Bildschirminhalt anzuzeigen
+\item Maze: Kleines ROM, wenige Instruktionen
+\item Viele ROMs welche nur einen statischen Bildschirm anzeigen
+\item Ich habe alle getestet und fehlende Instruktionen implementiert
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org7852283}]{Debugging}
+\begin{itemize}
+\item Debugger sind relativ nutzlos in diesem Szenario
+\item Aus diesem Grund: Logging!
+\item In besonders schwierigen Fällen: Vergleich von Logs meines Emulators
+mit einem anderen präparierten Emulator
+\item Erster Unterschied in den Logs: Quelle des Bugs
+\item Projektidee: CHIP-8 Debugger, Spiele-Entwicklungs-Umgebung
+\item Inspiration:
+\begin{itemize}
+\item \url{https://massung.github.io/CHIP-8/}
+\item \url{http://johnearnest.github.io/Octo/}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org2edb1c5}]{Analyse}
+\begin{itemize}
+\item Es ist einfach, aber nervig einen Disassembler zu schreiben
+\item Analyse-Funktionalität hinzuzufügen ist nicht trivial
+\item Idee: radare2 nutzen, Analyse/Disassembler-Plugin schreiben
+\item Anfangs in Python geschrieben, später stellte ich fest, dass das
+Projekt schon Plugins in C hat\ldots{}
+\item Diese wurden auf das gleiche Niveau wie die Python-Versionen
+verbessert
+\item Grafische Demo von Analyse-Output
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org5a85a35}]{Unit Tests}
+\begin{itemize}
+\item Ziel: Komplette Abdeckung aller Instruktionen und Seiteneffekte
+\item Dient als Sicherheitsnetz, deckt nicht sämtliche Fehlerquellen ab
+\item Eingebaute ERT-Bibliothek ist nicht besonders toll
+\item \url{https://github.com/jorgenschaefer/emacs-buttercup} ist besser
+\item Jeder Test initialisiert die VM, lädt Maschinencode, führt einen
+CPU-Zyklus aus und prüft auf Seiteneffekte
+\item Andere Idee: Ausführbare Spezifikation einer CPU (siehe ARM)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org3d595c6}]{Rendering}
+\begin{itemize}
+\item Deutlich schwieriger als alles andere
+\item Ich habe mich bewusst gegen eine fertige Bibliothek entschieden
+\item SVGs erzeugen: Dauert zu lange
+\item Erzeugen/Mutieren von Strings: Dauert zu lange, zu komplex
+\item SVG-Tiles: Lücken zwischen Bildschirmzeilen
+\item XPM-Bild mit Bool-Vector-Repräsentation: Caching ruiniert alles
+\item Text mit Hintergrundfarbe: Ideale Lösung
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org811aba7}]{Rendering-Optimierungen}
+\begin{itemize}
+\item Anfangs: Buffer-Inhalt löschen, Text einfügen
+\item Optimierung 1: Navigation im Text, geänderte Teile löschen und neue
+einfügen
+\item Optimierung 2: Dirty Frame Tracking
+\item Geänderte Teile: Unterschiede zwischen zwei Framebuffer finden
+\item Optimierung 3: Text löschen ist langsam, Texthintergrundfarbe ändern
+ist deutlich schneller
+\item Zukunftsmusik: C-Modul für ein schnelles Canvas-Objekt schreiben
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:org2120f20}]{Garbage Collection}
+ \begin{itemize}
+\item Problem: Gelegentliches Stottern
+\item Problemquelle: Code welcher Arrays dupliziert
+\item Lösung: Funktion à la \texttt{memcpy} schreiben
+\item Problem: Alle paar Tests gibt es eine konstante Verzögerung
+\item Lösung: Funktion à la \texttt{memset} nutzen statt neue Arrays zu erzeugen
+\item Es gibt keine guten Werkzeuge um solche Probleme zu debuggen
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:orgaaba775}]{Sound}
+ \begin{itemize}
+\item Emulation ist nicht schwierig, da man nur konstant piepsen muss
+\item Abspielen des Tons ist schwierig, da Emacs nur synchrone Wiedergabe
+unterstützt
+\item Emacs unterstützt asynchrone Prozesse
+\item \texttt{mpv} kann mit einer FIFO Befehle akzeptieren
+\item Proof of Concept:
+\begin{itemize}
+\item \texttt{mpv} im Loop-Mode pausiert starten, mit einer FIFO
+\item Senden eines Pause-/Wiedergabe-Befehls an die FIFO
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org6998b7b}]{Benutzereingabe (nicht blockierend)}
+\begin{itemize}
+\item Abfrage des Status einer Taste: Nicht unterstützt
+\item Lösung: Globaler Key-Handler welcher letzte Tastendruck und
+Zeitstempel speichert
+\item Vergleich der aktuellen Zeit mit letzter Zeit gegen einen Timeout
+\item Liegt man unter dem Timeout, zählt die Taste als noch gedrückt
+\item Fühlt sich ohne weitere Anpassungen nicht besonders flüssig an
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgc7fabd6}]{Benutzereingabe (blockierend)}
+\begin{itemize}
+\item Schwierig aufgrund der ungewöhlichen Game-Loop
+\item Die bestehende State-Machine (Abspielen/Pause) musste umgeschrieben
+werden
+\item Die Instruktion wechselt den Emulator in einen Warten-Zustand
+\item Globaler Key-Handler prüft auf diesen Zustand und wechselt zum
+normalen Abspiel-Zustand
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org6b769e7}]{Super CHIP-8}
+\begin{itemize}
+\item Unterstützt interessantere Spiele
+\item Ordentliches Scrolling erfordert Trickserei
+\item Verdoppelte Auflösung erfordert Rendering-Optimierung
+\item Man kann zwischen beiden Auflösungen wechseln, mögliche Ansätze
+sind:
+\begin{itemize}
+\item Immer in hoher Auflösung rendern, bei Bedarf herunterskalieren
+\item Alternative: Es wird zu einem von zwei Bildschirmen je nach
+aktueller Auflösung gerendert
+\item Ich habe mich für letzteres entschieden\ldots{}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org43b1ad3}]{Weitere Anmerkungen}
+\begin{itemize}
+\item Manchmal weichen Spiele von der Spezifikation ab, dies führt zu
+Konflikten
+\item Manchmal ist es unklar ob es sich lohnt obskure Funktionalität zu
+unterstützen
+\item Ich bin kein guter Spieler, mir macht es nicht besonders viel Spaß
+Spiele zu spielen
+\item Dennoch: Man versteht deutlich besser wie ein Computer funktioniert
+\end{itemize}
+\end{frame}
+
+\section{Outro}
+\label{sec:org8526e0d}
+
+\begin{frame}[label={sec:orgf67d7fa}]{Mögliche nächste Schritte}
+\begin{itemize}
+\item Ein Intel 8080 Emulator welcher das CP/M-Betriebssystem ausführt
+(Betriebssystem im Betriebssystem)
+\item Experimente mit schnellem Rendering
+\item Schwierigere Emulationsprojekte in einer tauglicheren
+Programmiersprache
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org19ba262}]{Fragen?}
+\end{frame}
+\end{document}
